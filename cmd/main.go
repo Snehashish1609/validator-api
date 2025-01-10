@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/Snehashish1609/validator-api/config"
 	v1 "github.com/Snehashish1609/validator-api/handlers/v1"
 	"github.com/Snehashish1609/validator-api/middlewares"
 	"github.com/Snehashish1609/validator-api/models"
@@ -12,6 +13,8 @@ import (
 func main() {
 	fmt.Println("Starting Validator API...")
 
+	c := config.InitConfig("Validator", ":8080")
+
 	// gin default router
 	r := gin.Default()
 
@@ -19,11 +22,11 @@ func main() {
 	r.Use(middlewares.LatencyLogger())
 
 	userHandler := models.NewUserHandler()
-	apiHandler := v1.NewAPIHandler(userHandler)
+	apiHandler := v1.NewAPIHandler(c, userHandler)
 
 	// routes
 	r.POST("/validate-user", apiHandler.ValidateUser)
 
 	// start server
-	r.Run(":8080")
+	r.Run(c.Port)
 }

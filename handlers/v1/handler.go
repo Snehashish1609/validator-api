@@ -3,6 +3,7 @@ package v1
 import (
 	"net/http"
 
+	"github.com/Snehashish1609/validator-api/config"
 	"github.com/Snehashish1609/validator-api/models"
 
 	"github.com/Snehashish1609/validator-api/internal/common"
@@ -13,13 +14,15 @@ import (
 
 type APIHandler struct {
 	UserHandler *models.UserHandler
+	Config      *config.Config
 	// ToDo:
 	// can add DB client here (if required)
 }
 
-func NewAPIHandler(uh *models.UserHandler) *APIHandler {
+func NewAPIHandler(c *config.Config, uh *models.UserHandler) *APIHandler {
 	return &APIHandler{
 		UserHandler: uh,
+		Config:      c,
 	}
 }
 

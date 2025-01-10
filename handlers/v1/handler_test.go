@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 
+	"github.com/Snehashish1609/validator-api/config"
 	"github.com/Snehashish1609/validator-api/models"
 
 	"github.com/Snehashish1609/validator-api/middlewares"
@@ -19,6 +20,7 @@ import (
 var _ = Describe("APIHandler", func() {
 	var (
 		r           *gin.Engine
+		c           *config.Config
 		recorder    *httptest.ResponseRecorder
 		userHandler *models.UserHandler
 		apiHandler  *v1.APIHandler
@@ -28,9 +30,10 @@ var _ = Describe("APIHandler", func() {
 		gin.SetMode(gin.TestMode)
 		r = gin.Default()
 		r.Use(middlewares.LatencyLogger())
+		c = config.InitConfig("test", "test")
 
 		userHandler = models.NewUserHandler()
-		apiHandler = v1.NewAPIHandler(userHandler)
+		apiHandler = v1.NewAPIHandler(c, userHandler)
 
 		// routes
 		r.POST("/validate-user", apiHandler.ValidateUser)
