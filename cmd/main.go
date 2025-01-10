@@ -3,12 +3,9 @@ package main
 import (
 	"fmt"
 
-	"github.com/Snehashish1609/validator-api/middlewares"
-
-	"github.com/Snehashish1609/validator-api/models"
-
 	v1 "github.com/Snehashish1609/validator-api/handlers/v1"
-
+	"github.com/Snehashish1609/validator-api/middlewares"
+	"github.com/Snehashish1609/validator-api/models"
 	"github.com/gin-gonic/gin"
 )
 
